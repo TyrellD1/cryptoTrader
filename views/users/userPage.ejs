@@ -1,0 +1,51 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="d-flex flex-column user__container_all">
+        <img class="userPhoto_all mx-auto" src="<%= user.userImg %>" alt="Profile Pic">
+        <h2 class="userName_all"><%= user.username %></h2>
+        <h3 class="userBio_all"><%= user.bio %> </h3>
+        <button class="totalFriends__button_all" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <h4 class="totalFriends_all">119 friends</h4>
+        </button>
+        <div class="collapse mt-2" id="collapseExample">
+            <table class="table table-dark table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" class="friendsTable-collapse"></th>
+                    <th scope="col" class="mr-1">#</th>
+                    <th scope="col">Name</th>
+                  </tr>
+                </thead>
+                <tbody> 
+                <% for(let i = 1; i <= 10; i++) { %>                        
+                    <tr>
+                        <td></td>
+                        <th scope="row"><%= i %></th>
+                        <td class="">Penelope</td>
+                    </tr>
+                <% } %> 
+                </tbody>
+            </table> 
+        </div>
+    </div>
+    <%- include('../partials/postExpand') %>
+    <div class="d-flex flex-column user__favorites__container_all">
+        <h2 class="mx-auto titlePrimary_all">Favorite Cryptos</h2>
+        <table class="table table-dark table-hover table-border">
+            <thead>
+              <tr>
+                <th scope="col" class="mr-1">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Change +/-</th>
+                <th class="text-center" scope="col">-</th>
+              </tr>
+            </thead>
+            <tbody>
+                <%- include('../partials/userFavoriteCryptos') %>
+            </tbody>
+        </table> 
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<%- include("../partials/head") %>
+<body>
+    <%- include('../partials/nav') %>
+    <table class="table table-dark table-hover">
+        <thead>
+          <tr>
+            <th scope="row" colspan="4" class="text-center">Friends</th>
+          </tr>
+          <tr>
+            <th scope="col" class="friendsTable-collapse"></th>
+            <th scope="col" class="mr-1">#</th>
+            <th scope="col">Name</th>
+            <% if(currentUser) { %>
+                <th scope="col"></th> 
+            <% } %>  
+          </tr>
+        </thead>
+        <tbody> 
+        <% for(user of users) { %>                        
+            <tr id="user<%= user._id %>">
+                <td></td>
+                <th scope="row"><%= users.indexOf(user) + 1 %></th>
+                <td class=""><%= user.username %> </td>
+                <% if(currentUser) { %>
+                <td>
+                    <form action="/addfriend/<%= user._id %>" method="POST">
+                        <button class="btn btn-outline-primary addButton">+</button>
+                    </form>
+                </td>
+                <% } %> 
+            </tr>
+            <script>
+            document.querySelector('#user<%= user._id %>').addEventListener('click', () => {
+                window.location.href = '/userPage/<%= user._id %>'
+            });
+            </script>   
+        <% } %> 
+        </tbody>
+    </table> 
+</body>

@@ -1,0 +1,36 @@
+<% if(currentUser) { %> 
+    <% for(crypto of currentUser.favoriteCryptos) { %>                        
+        <tr id="crypto<%= crypto._id %>">
+            <th scope="row"><%= currentUser.favoriteCryptos.indexOf(crypto) + 1 %></th>
+            <td class=""><img class="coinImages mb-1 me-1" src="<%= crypto.coinImg %> " alt=""><%= crypto.coinName %> </td>
+            <td><%= crypto.coinPrice.toFixed(2) %> </td>
+            <td class="<% if(crypto.coinChange >= 0) { %> green <% } else if (crypto.coinChange < 0) { %> red <% } %> ">
+                <%if(crypto.coinChange >= 0) { %>+<% } %><%= crypto.coinChange.toFixed(2) %></td>
+            <td class="text-center">
+                <form action="/removeFavorite/<%= crypto._id %>?_method=PUT" method="POST">
+                    <button class="btn btn-outline-primary">-</button>
+                </form>
+            </td>
+        </tr>
+        <script>
+            document.querySelector('#crypto<%= crypto._id %>').addEventListener('click', () => {
+                window.location.href = '/crypto/<%= crypto._id %>'
+            });
+        </script>   
+    <% } %> 
+<% } else if (!currentUser ) { %>
+    <% for(crypto of user.favoriteCryptos) { %>                        
+        <tr id="crypto<%= crypto._id %>">
+            <th scope="row"><%= user.favoriteCryptos.indexOf(crypto) + 1 %></th>
+            <td class=""><img class="coinImages mb-1 me-1" src="<%= crypto.coinImg %> " alt=""><%= crypto.coinName %> </td>
+            <td><%= crypto.coinPrice.toFixed(2) %> </td>
+            <td class="<% if(crypto.coinChange >= 0) { %> green <% } else if (crypto.coinChange < 0) { %> red <% } %> ">
+                <%if(crypto.coinChange >= 0) { %>+<% } %><%= crypto.coinChange.toFixed(2) %></td>
+        </tr>
+        <script>
+            document.querySelector('#crypto<%= crypto._id %>').addEventListener('click', () => {
+                window.location.href = '/crypto/<%= crypto._id %>'
+            });
+        </script>   
+    <% } %> 
+<% } %> 

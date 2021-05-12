@@ -1,0 +1,44 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="flex horz main_all">
+        <div class="flex column main__leftColumn_all main__columnGeneral_all">
+        </div>
+        <div class="flex column main__centerColumn_all"> 
+            <div class="flex column formContainer_all mx-4">
+                <form class="needs-validation flex column" action="/newUser" method="POST" novalidate>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Profile Image</span>
+                            <input class="form-control" type="text" maxlength="700" name="userImg" id="userImg" placeholder="ImageUrl" required>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Username</span>
+                            <input class="form-control" type="text" maxlength="50" name="username" id="username" placeholder="Captain_Destructor" required>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Password</span>
+                            <input class="form-control" type="text" maxlength="36" name="password" id="password" placeholder="password" required>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Age</span>
+                            <select class="form-select" aria-label="Default select example" id="age" name="age">
+                                <% for(let i = 21; i <= 121; i++) { %> 
+                                    <option value="<%= i %>"><%= i %> </option>
+                                <% } %> 
+                            </select>
+                        </div>
+                        <button class="btn btn-primary mt-3 postButton">Create User</button>
+                        <a class="btn btn-outline-warning mt-3 ms-2 loginButton" href="/login">Login</a> 
+
+                </form>
+            </div>
+        </div>
+        <div class="flex column main__rightColumn_all outsideColumnGeneral_all">
+
+        </div>
+    </div>
+<%- include('../partials/validator') %>
+</body>
+</html>
+</body>
+</html>

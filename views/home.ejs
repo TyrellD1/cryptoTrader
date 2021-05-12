@@ -1,0 +1,136 @@
+<%- include('partials/head') %>
+<body>
+    <%- include('partials/nav') %>
+    <div class="d-flex flex-row">
+        <% if (currentUser) { %> 
+        <div id="table" class="tableContainer_all d-flex flex-row">
+                    <table class="table table-dark table-hover table-border">
+                        <thead>
+                          <tr>
+                              <th scope="row" colspan="5" class="text-center">Favorite Cryptos</th>
+                          </tr>
+                          <tr>
+                            <th scope="col" class="mr-1">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Change +/-</th>
+                            <th class="text-center">-</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <%- include('partials/favoriteCryptos') %>
+                        </tbody>
+                    </table> 
+                    <button id="btn" class="d-flex collapse-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <img id="btn__arrow" class="btn__arrow_all" src="https://cdn.iconscout.com/icon/free/png-512/keyboard-down-arrow-1780093-1518654.png" alt="spinArrow">
+                    </button>
+        </div>
+        <% } %> 
+        <div id="centerColumn" class="d-flex flex-column center__column_all <% if(!currentUser) { %>
+            mx-auto width60
+        <% } %> ">
+            <div class="center__column__container_all mx-auto">
+                <% for(post of posts) { %> 
+                <div class="center__column__postContainer_all d-flex flex-column mx-auto mt-2">
+                    <!-- <h2 class="text-white"><%=// post.user._id %> </h2> 
+                    <h2 class="text-white"><%=// currentUser._id %> </h2> --> <!-- Id's appear to have strict equality but it 
+                    it is not showing it in if statement below so I used username and it worked. Username is not duplicable
+                    in passport so it is somewhat of a appropriate method but would have much preferred id.-->
+                    <img class="center__column__postContainer__img_all mx-auto" src="<%= post.postImg %>" alt="alt">
+                    <div class="d-flex flex-row mt-1 mx-2 width-fitContent">
+                        <!-- <a href=" "> -->
+                        <% if(currentUser) { %> 
+                            <% if (currentUser.username === post.user.username) { %> 
+                                <a href="/currentUser"><img class="center__column__postContainer__profImg_all my-auto" src="<%= post.user.userImg %>" alt=""></a>
+                                <a href="/currentUser" class="text-break center__column__postContainer__profUsername_all my-auto text-white my-auto ms-2"><%= post.user.username %></a>
+                            <% } else if (currentUser.username !== post.user.username) { %>
+                                <a href="/userPage/<%= post.user._id %> "><img class="center__column__postContainer__profImg_all my-auto" src="<%= post.user.userImg %>" alt=""></a>
+                                <a href="/userPage/<%= post.user._id %> " class="text-break center__column__postContainer__profUsername_all my-auto text-white my-auto ms-2"><%= post.user.username %></a>
+                            <% } %>  
+                        <% } else { %>
+                            <a href="/userPage/<%= post.user._id %> "><img class="center__column__postContainer__profImg_all my-auto" src="<%= post.user.userImg %>" alt=""></a>
+                            <a href="/userPage/<%= post.user._id %> " class="text-break center__column__postContainer__profUsername_all my-auto text-white my-auto ms-2"><%= post.user.username %></a>
+                        <% } %> 
+                    </div>
+                    <a href="/post/<%= post._id %> " class="anchor-hover"><h2 class="text-white mx-2 mt-0 mb-0 link-hover"><%= post.postTitle %></h2></a>
+                    <p class="text-white mx-2 mt-1 text-break"><%= post.postDescription %> </p>
+                </div>
+                <% } %> 
+            </div>
+        </div>
+        <% if(currentUser) { %> 
+        <div id="friendsTable" class="friendsTableContainer_all d-flex flex-row">
+            <button id="friendBtn" class="d-flex friendsCollapse-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <img id="friendBtn__arrow" class="btn__arrow_all friendBtn__arrow_all friendBtn__arrowUp_all" src="https://cdn.iconscout.com/icon/free/png-512/keyboard-down-arrow-1780093-1518654.png" alt="spinArrow">
+            </button>
+            <table class="table table-dark table-hover">
+                <thead>
+                  <tr>
+                    <th scope="row" colspan="4" class="text-center">Friends</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" class="friendsTable-collapse"></th>
+                    <th scope="col" class="mr-1">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" class="text-center">-</th>
+                  </tr>
+                </thead>
+                <tbody> 
+                <% for(friend of currentUser.friends) { %>                      
+                    <tr>
+                        <td></td>
+                        <th scope="row"><%= currentUser.friends.indexOf(friend) + 1 %></th>
+                        <td class=""><%= friend.username %> </td>
+                        <td class="text-center">
+                            <form action="/removeFriend/<%= friend._id %>?_method=PUT" method="POST">
+                                <button class="btn btn-outline-primary">-</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <script>
+                        document.querySelector('#user<%= friend._id %>').addEventListener('click', () => {
+                            window.location.href = '/userPage/<%= friend._id %>'
+                        });
+                    </script>   
+                <% } %>   
+                </tbody>
+            </table> 
+        </div>
+        <% } %>
+    </div>
+</body>
+<script>
+    let btn = document.querySelector('#btn')
+    let btnArrow = document.querySelector('#btn__arrow');
+    let table = document.querySelector('#table')
+
+    let friendBtn = document.querySelector('#friendBtn')
+    let friendBtnArrow = document.querySelector('#friendBtn__arrow');
+    let friendsTable = document.querySelector('#friendsTable')
+
+    let friendsTableLabel = document.querySelector('#friendsBottomRow')
+
+    let centerColumn = document.querySelector('#centerColumn')
+    btn.addEventListener('click', () => {
+        btnArrow.classList.toggle('btn__arrowUp_all');
+    });
+    btn.addEventListener('click', () => {
+        table.classList.toggle('table-collapse');
+    });
+    friendBtn.addEventListener('click', () => {
+        friendsTable.classList.toggle('friendsTable-collapse');
+    });
+    friendBtn.addEventListener('click', () => {
+        friendBtnArrow.classList.toggle('friendBtn__arrowUp_all');
+    });
+    friendBtn.addEventListener('click', () => {
+        friendsTableLabel.classList.toggle('d-none');
+    });
+    btn.addEventListener('click', () => {
+        centerColumn.classList.toggle('center__column__collapse_all')
+    })
+    friendBtn.addEventListener('click', () => {
+        centerColumn.classList.toggle('center__column__friendsCollapse_all')
+    })
+</script>
+</html>

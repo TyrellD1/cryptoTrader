@@ -1,0 +1,93 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+    <%- include('../partials/flashMessage') %>
+    <div class="d-flex flex-column user__container_all">
+        <img class="userPhoto_all mx-auto" src="<%= currentUser.userImg %>" alt="Profile Pic">
+        <h2 class="userName_all"><%= currentUser.username %> </h2>
+        <h3 class="userBio_all"><%= currentUser.bio %> </h3>
+        <button class="totalFriends__button_all" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <h4 class="totalFriends_all">119 friends</h4>
+        </button>
+        <div class="d-flex flex-row">
+            <a class="btn btn-warning updateButton" href="/user/<%= currentUser._id %>/update">Update</a>
+            <form class="ms-2" action="/user/<%= currentUser._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+        <a href=""></a>
+        <div class="collapse mt-2" id="collapseExample">
+            <table class="table table-dark table-hover">
+                <thead>
+                  <tr>
+                      <th colspan="3" class="text-center">Friends</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" class="mr-1">#</th>
+                    <th scope="col">Name</th>
+                  </tr>
+                </thead>
+                <tbody> 
+                <% for(friend of currentUser.friends) { %>                        
+                    <tr id="user<%= friend._id %>">
+                        <th scope="row"><%= currentUser.friends.indexOf(friend) + 1 %></th>
+                        <td class=""><%= friend.username %> </td>
+                    </tr>
+                    <script>
+                        document.querySelector('#user<%= friend._id %>').addEventListener('click', () => {
+                            window.location.href = '/userPage/<%= friend._id %>'
+                        });
+                    </script>   
+                <% } %>   
+                </tbody>
+            </table> 
+        </div>
+    </div>
+    <button id="postExpand" class="btn btn-secondary postExpandButton">
+        P<br>O<br>S<br>T<br>S
+    </button>
+    <div id="postExpandContainer" class="user__container_all user__container__posts_all">
+        <% for(post of currentUser.posts) { %> 
+            <div class="center__column__postContainer_all d-flex flex-column mx-auto mt-2">
+                <img class="center__column__postContainer__img_all mx-auto" src="<%= post.postImg %>" alt="alt">
+                <div class="d-flex flex-row mt-1 mx-2 width-fitContent">
+                        <a href="/userPage/<%= post.user._id %> "><img class="center__column__postContainer__profImg_all my-auto" src="<%= post.user.userImg %>" alt=""></a>
+                        <a href="/userPage/<%= post.user._id %> " class="center__column__postContainer__profUsername_all my-auto text-white my-auto ms-2"><%= post.user.username %></a>
+                </div>
+                <a href="/post/<%= post._id %> " class="anchor-hover"><h2 class="text-white mx-2 mt-0 mb-0 link-hover"><%= post.postTitle %></h2></a>
+                <p class="text-white mx-2 mt-1 text-break"><%= post.postDescription %> </p>
+                <div class="d-flex flex-row">
+                    <a class="btn btn-warning ms-2 mb-2 h-100" href="/post/<%= post._id %>/update">Update</a>
+                    <form action="/deletePost/<%= post._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger ms-2">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <div class="d-flex flex-column user__favorites__container_all">
+        <h2 class="mx-auto titlePrimary_all">Favorite Cryptos</h2>
+        <table class="table table-dark table-hover table-border">
+            <thead>
+              <tr>
+                <th scope="col" class="mr-1">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Change +/-</th>
+                <th class="text-center" scope="col">-</th>
+            </tr>
+            </thead>
+            <tbody>
+                <%- include('../partials/favoriteCryptos') %>
+            </tbody>
+        </table> 
+    </div>
+</body>
+<script>
+    let postExpandButton = document.querySelector('#postExpand')
+    let postExpandContainer = document.querySelector('#postExpandContainer')
+    postExpandButton.addEventListener('click', () => {
+        postExpandContainer.classList.toggle('postExpandContainer__visibility')
+    })
+</script>
+</html>

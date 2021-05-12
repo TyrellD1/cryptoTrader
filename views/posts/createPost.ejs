@@ -1,0 +1,36 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="flex horz main_all">
+        <div class="flex column main__leftColumn_all main__columnGeneral_all">
+        </div>
+        <div class="flex column main__centerColumn_all"> 
+            <%- include('../partials/flashMessage') %>    
+            <div class="flex column formContainer_all mx-4">
+                <form class="needs-validation flex column" action="/newPost" method="POST" novalidate>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Image</span>
+                            <input class="form-control" type="text" maxlength="700" name="postImg" 
+                            id="postImg" placeholder="postImg(URL)" required>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Title</span>
+                            <input class="form-control" type="text" maxlength="700" name="postTitle" 
+                            id="postTitle" placeholder="Wacky Day.." required>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Description</span>
+                            <textarea maxlength="500" class="form-control" id="postDescription" name="postDescription" placeholder="You won't believe.." rows="3"></textarea>
+                        </div>
+                        <button class="btn btn-primary mt-3 mx-auto postButton">Create Post</button>
+                </form>
+            </div>
+        </div>
+        <div class="flex column main__rightColumn_all outsideColumnGeneral_all">
+
+        </div>
+    </div>
+<%- include('../partials/validator') %>
+</body>
+</html>
+</body>
+</html>

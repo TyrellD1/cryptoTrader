@@ -1,0 +1,38 @@
+<div class="d-flex flex-column">
+    <table class="table table-dark table-hover table-border">
+        <thead>
+          <tr>
+            <th scope="col" class="mr-1">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Change +/-</th>
+            <% if(currentUser) { %>
+                <th scope="col">Fav</th>
+            <% } %> 
+          </tr>
+        </thead>
+        <tbody>
+        <% for(crypto of cryptos) { %>                        
+            <tr id="crypto<%= crypto._id %>">
+                <th scope="row"><%= cryptos.indexOf(crypto) + 1%></th>
+                <td class=""><img class="coinImages mb-1 me-1" src="<%= crypto.coinImg %> " alt=""><%= crypto.coinName %> </td>
+                <td><%= crypto.coinPrice.toFixed(2) %> </td>
+                <td class="<% if(crypto.coinChange >= 0) { %> green <% } else if (crypto.coinChange < 0) { %> red <% } %> ">
+                    <%if(crypto.coinChange >= 0) { %>+<% } %><%= crypto.coinChange.toFixed(2) %></td>
+                <% if(currentUser) { %>
+                    <td>
+                        <form action="/addfavorite/<%= crypto._id %>" method="POST">
+                            <button class="btn btn-outline-primary">Fav</button>
+                        </form>
+                    </td>
+                <% } %> 
+            </tr>
+            <script>
+                document.querySelector('#crypto<%= crypto._id %>').addEventListener('click', () => {
+                    window.location.href = '/crypto/<%= crypto._id %>'
+                });
+            </script>   
+        <% } %> 
+        </tbody>
+    </table> 
+</div>

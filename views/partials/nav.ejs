@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/c">Crypto<span class="">Trader</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar__list1_marginLeft">
+          <li class="nav-item">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/c"><i class="fas fa-th"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Users"><i class="fas fa-users"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/allCryptos"><i class="fas fa-coins"></i></a>
+          </li>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar__list2_marginLeft">
+          <li class="nav-item">
+            <a class="nav-link" href="/createCrypto"><i class="fas fa-plus"></i><i class="fas fa-coins"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/createPost"><i class="fas fa-plus-square"></i></a>
+          </li>
+        </ul>
+        <% if (!currentUser) { %>
+          <a class="btn btn-outline-info loginButton" href="/login">Login</a> 
+          <a class="btn btn-outline-warning loginButton ms-2" href="/registerUser">Register</a>  
+        <% } else if (currentUser) { %> 
+        <form class="my-auto" action="/logout" method="POST">
+          <button class="btn btn-outline-light">Logout</button>
+        </form>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= currentUser.username %> 
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/currentUser">User Home</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/v/new">New Post</a></li>
+          </ul>
+        </li>
+        <% } %> 
+      </div>
+    </div>
+  </nav>

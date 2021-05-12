@@ -1,0 +1,37 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="flex horz main_all">
+        <div class="flex column main__leftColumn_all main__columnGeneral_all">
+        </div>
+        <div class="flex column main__centerColumn_all"> 
+            <div class="flex column formContainer_all mx-4">
+                <form class="needs-validation flex column" action="/newCrypto" method="POST" novalidate>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Crpto Image</span>
+                            <input class="form-control" type="text" maxlength="700" name="coinImg" 
+                            id="coinImg" placeholder="coinImg(URL)" required>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Crpto Name</span>
+                            <input class="form-control" type="text" maxlength="700" name="coinName" 
+                            id="coinName" placeholder="Bitcoin" required>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Crpto Sign</span>
+                            <input class="form-control" type="text" maxlength="36" 
+                            name="coinSign" id="coinSign" placeholder="BTC" required>
+                        </div>
+                        <button class="btn btn-primary mt-3 mx-auto postButton">Create Crypto</button>
+                </form>
+            </div>
+        </div>
+        <div class="flex column main__rightColumn_all outsideColumnGeneral_all">
+
+        </div>
+    </div>
+<%- include('../partials/validator') %>
+</body>
+</html>
+</body>
+</html>

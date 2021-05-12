@@ -1,0 +1,64 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-horz mx-auto">
+            <div class="postContainer center__column__postContainer_all d-flex flex-column mt-2">
+                <img class="center__column__postContainer__img_all mx-auto" src="<%= post.postImg %>" alt="alt">
+                <div class="d-flex flex-row mt-1 mx-2 width-fitContent">
+                        <a href="/userPage/<%= post.user._id %> "><img class="center__column__postContainer__profImg_all my-auto" src="https://images.unsplash.com/photo-1581992652564-44c42f5ad3ad?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZSUyMHBpY3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt=""></a>
+                        <a href="/userPage/<%= post.user._id %> " class="center__column__postContainer__profUsername_all my-auto text-white my-auto ms-2"><%= post.user.username %></a>
+                </div>
+                <a href="/post/<%= post._id %> " class="anchor-hover"><h2 class="text-white mx-2 mt-0 mb-0 link-hover"><%= post.postTitle %></h2></a>
+                <p class="text-white mx-2 mt-1 text-break"><%= post.postDescription %> </p>
+            </div>
+            <div class="flex column formContainer_all ms-5 mt-5 width-40">
+                <%- include('../partials/flashMessage') %>
+                <form id="postUpdateForm" class="needs-validation flex column" action="/editPost/<%= post._id %>?_method=PUT" method="POST" novalidate>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Image</span>
+                            <input class="form-control" type="text" maxlength="700" name="postImg" 
+                            id="postImg" placeholder="postImg(URL)" value="<%= post.postImg %>" required>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Title</span>
+                            <input class="form-control" type="text" maxlength="700" name="postTitle" 
+                            id="postTitle" placeholder="Wacky Day.." value="<%= post.postTitle %> " required>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Description</span>
+                            <textarea maxlength="500" class="form-control" id="postDescription" name="postDescription" placeholder="You won't believe.." rows="3"><%= post.postDescription %> </textarea>
+                        </div>
+                        <div class="d-flex flex-row mt-2">
+                            <button class="btn btn-warning h-100 postButton">Save Changes</button>
+                            <div id="finishButton" class="btn btn-primary h-100 ms-2">Finish Updating</div>
+                        </div>
+                </form>
+            </div>
+        </div>
+        <div id="warningBlock" class="flex-column warningBlock">
+            <h2 class="mx-3 text-white text-break title">Only changes you've saved will be applied, are you sure you want to leave?</h2>  
+            <div class="d-flex flex-row mx-auto mt-2">
+                <button id="continueButton" class="btn btn-primary h-100 postButton">Continue Editing</button>
+                <a class="btn btn-danger h-100 ms-2" href="/currentUser">Finish and Leave</a>
+            </div>
+        </div>
+    </div>
+<div id="bodyguard" class="bodyguard">
+
+</div>
+<script>
+    let finishButton = document.querySelector('#finishButton')
+    let continueButton = document.querySelector('#continueButton')
+    let warningBlock = document.querySelector('#warningBlock')
+    let bodyguard = document.querySelector('#bodyguard')
+    finishButton.addEventListener('click', () => {
+        warningBlock.classList.toggle('warningBlockVisible')
+        bodyguard.classList.toggle('bodyguardVisible')
+    })
+    continueButton.addEventListener('click', () => {
+        warningBlock.classList.toggle('warningBlockVisible')
+        bodyguard.classList.toggle('bodyguardVisible')
+    })
+</script>
+</body>
+</html>

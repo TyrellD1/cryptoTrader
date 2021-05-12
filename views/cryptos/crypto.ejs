@@ -1,0 +1,18 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="d-flex flex-column user__container_all mb-3">
+        <img class="userPhoto_all mx-auto" src="<%= crypto.coinImg %> " alt="Coin Pic">
+        <h2 class="userName_all"><%= crypto.coinName %><span class="cryptoSign_all"> <%= crypto.coinSign %></span></h2>
+        <h3 class="userBio_all"><%= crypto.coinInfo %> </h3>
+        <div class="d-flex flex-row">
+            <a class="btn btn-warning updateButton" href="/crypto/<%= crypto._id %>/update">Update</a>
+            <form class="ms-2" action="/crypto/<%= crypto._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+    <h2 class="mx-auto titlePrimary_all text-center mb-3">Other Cryptos</h2> 
+    <%- include('../partials/allCryptos') %>
+</body>
+</html>

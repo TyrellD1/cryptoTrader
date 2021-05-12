@@ -1,0 +1,14 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="postContainer center__column__postContainer_all d-flex flex-column mx-auto mt-2">
+        <img class="center__column__postContainer__img_all mx-auto" src="<%= post.postImg %>" alt="alt">
+        <div class="d-flex flex-row mt-1 mx-2 width-fitContent">
+                <a href="/userPage/<%= post.user._id %> "><img class="center__column__postContainer__profImg_all my-auto" src="https://images.unsplash.com/photo-1581992652564-44c42f5ad3ad?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZSUyMHBpY3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt=""></a>
+                <a href="/userPage/<%= post.user._id %> " class="center__column__postContainer__profUsername_all my-auto text-white my-auto ms-2"><%= post.user.username %></a>
+        </div>
+        <a href="/post/<%= post._id %> " class="anchor-hover"><h2 class="text-white mx-2 mt-0 mb-0 link-hover"><%= post.postTitle %></h2></a>
+        <p class="text-white mx-2 mt-1 text-break"><%= post.postDescription %> </p>
+    </div>
+</body>
+</html>
